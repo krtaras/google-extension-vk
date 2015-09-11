@@ -1,3 +1,8 @@
 <div ng-controller="userAudioController">
-	{{userAudio}}
+	<div ng-repeat="item in userAudios">
+		{{item.title}}
+		<audio controls>
+			<source src="{{trustSrc(item.url)}}" type="audio/mpeg">
+		</audio>
+	</div>
 </div>

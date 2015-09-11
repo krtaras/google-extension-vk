@@ -6,7 +6,7 @@ var VkAPIHelper = new (function() {
 	},
 	
 	this.getUserAudio = function(userId, access_token, callbackFunc) {
-		var url = "https://api.vk.com/method/audio.get?owner_id=" + userId + "&access_token=" + access_token;
+		var url = "https://api.vk.com/method/audio.get?owner_id=" + userId + "&access_token=" + access_token + "&v=5.37";
 		callMethod(url, callbackFunc);
 	}
 	
