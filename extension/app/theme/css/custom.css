@@ -27,7 +27,11 @@
 }
 
 .vk-extension .left-panel .main-menu .col:hover {
-	background-color: #365475
+	background-color: #365475;
+}
+
+.vk-extension .left-panel .main-menu .active {
+	background-color: #365475;
 }
 
 .vk-extension .main-panel {

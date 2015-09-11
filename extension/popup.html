@@ -16,19 +16,19 @@
 		<div class="row"  ng-controller="userProfileInfoController">
 			<div class="col s2 left-panel">
 				<div class="row main-menu">
-					<div class="col s12">
+					<div class="col s12" ng-class='{"active":tog==1}' ng-click="openMyInfo();tog=1;">
 						<img class="circle" id="profile-photo" src="{{userProfilePhoto}}"/>
 					</div>
-					<div class="col s12"><!--Messages-->
+					<div class="col s12" ng-class='{"active":tog==2}' ng-click="openMyMessages();tog=2;"><!--Messages-->
 						<i class="material-icons">&#xE0BE;</i>
 					</div>
-					<div class="col s12" id="audio-menu-btn" ng-click="openMyAudio();"><!--Audio-->
+					<div class="col s12" id="audio-menu-btn" ng-class='{"active":tog==3}' ng-click="openMyAudios();tog=3;"><!--Audio-->
 						<i class="material-icons">&#xE030;</i>
 					</div>
-					<div class="col s12"><!--News-->
+					<div class="col s12" ng-class='{"active":tog==4}' ng-click="openMyNews();tog=4;"><!--News-->
 						<i class="material-icons">&#xE0C9;</i>
 					</div>
-					<div class="col s12"><!--Settings-->
+					<div class="col s12" ng-class='{"active":tog==5}' ng-click="openMySettings();tog=5;"><!--Settings-->
 						<i class="material-icons">&#xE8B8;</i>
 					</div>
 				</div>
