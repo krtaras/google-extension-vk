@@ -12,14 +12,6 @@ var BackgroundService = new (function() {
 		}
 	}
 
-	this.loadUserAudio = function(scope) {
-		VkAPIHelper.getUserAudio(VKAuthController.getCurrentUserId(), VKAuthController.getAccessToken(), function(data){
-			scope.$apply(function(){
-				scope.userAudios = data.response.items;
-			});
-		});
-	}
-
 	var setCurrentUser = function(data) {
 		currentUser = data.response[0];
 	}
