@@ -1,10 +1,9 @@
-var VK = function() {
-	var vkAuthController;
+var BackgroundService = new (function() {
 	var currentUser;
+	var audioPlayer;
 	
 	this.reconect = function() {
-		vkAuthController = new VKAuthController();
-		vkAuthController.connect(init);
+		VKAuthController.connect(setCurrentUser);
 	}
 	
 	this.getMyImgUrl = function() {
@@ -12,19 +11,16 @@ var VK = function() {
 			return currentUser.photo_50;
 		}
 	}
-	
-	var init = function() {
-		console.log("init function..."); //DEBUG LOG
-		vkAuthController.getCurrentUser(setCurrentUser);
+
+	this.loadUserAudio = function(updateFunction) {
+		VkAPIHelper.getUserAudio(VKAuthController.getCurrentUserId(), VKAuthController.getAccessToken(), updateFunction);
 	}
-	
+
 	var setCurrentUser = function(data) {
 		currentUser = data.response[0];
 	}
-}
-
-var vk = new VK();
-vk.reconect();
+})();
+BackgroundService.reconect();
 
 
 

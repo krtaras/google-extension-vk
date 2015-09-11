@@ -1,5 +1,7 @@
-var background = chrome.extension.getBackgroundPage();
-var app = angular.module('googleExtensionVK', []);
-app.controller('userProfileInfo', function($scope){
-	$scope.userProfilePhoto = background.vk.getMyImgUrl();
+(function () {
+    'use strict';
+     angular.module('googleExtensionVK', []);
+})();
+
+$(document).ready(function (){
 });

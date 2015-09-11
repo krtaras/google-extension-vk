@@ -1,9 +1,9 @@
-var VKAuthController = function () {
+var VKAuthController = new (function () {
 	
 	var access_token = "";
-	var current_user = "";
+	var current_user_id = "";
 	
-	this.connect = function (init) {
+	this.connect = function (callBackSetCurrentUserProfile) {
 		var clientId = "client_id=5064446";
 		var scope = "scope=audio,offline";
 		var redirectUrl = "redirect_uri=http%3A%2F%2Foauth.vk.com%2Fblank.html";
@@ -13,26 +13,24 @@ var VKAuthController = function () {
 			chrome.tabs.onUpdated.addListener(function tabUpdateListener(tabId, changeInfo) {
 				if (tabId == authTabId && changeInfo.url != undefined && changeInfo.status == "loading") {
 					if (changeInfo.url.indexOf('oauth.vk.com/blank.html') > -1) {
-						console.log(changeInfo.url); //DEBUG LOG
 						access_token = getTokenFromURL(changeInfo.url);
-						current_user = getUserId(changeInfo.url);
-						console.log(access_token); //DEBUG LOG
-						console.log(current_user); //DEBUG LOG
+						current_user_id = getUserId(changeInfo.url);
 						chrome.tabs.remove(tabId, function () { });
-						init();
+						var filds = "photo_50";
+						VkAPIHelper.getUserProfile(current_user_id, filds, access_token, callBackSetCurrentUserProfile)
 					}
 				}
 			});
 		});
 	};
 	
-	this.getCurrentUser = function(callback) {
-		var url = "https://api.vk.com/method/users.get?user_id="+ current_user + "&fields=photo_50&v=5.37&access_token=" + access_token;
-		$.get(url, function(data){
-			console.log(data); //DEBUG LOG
-			callback(data);
-		}, "json");
-	};
+	this.getAccessToken = function() {
+		return access_token;
+	}
+	
+	this.getCurrentUserId = function() {
+		return current_user_id;
+	}
 	
 	var getTokenFromURL = function(url) {
 		var tmpUrl = url;
@@ -51,4 +49,4 @@ var VKAuthController = function () {
 		tmpUrl = tmpUrl.replace("user_id=","");
 		return tmpUrl;
 	};
-}
+})();

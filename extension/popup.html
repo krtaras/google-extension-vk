@@ -4,32 +4,39 @@
 		<script type="text/javascript" src="app/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="app/theme/js/materialize.min.js"></script>
 		<script type="text/javascript" src="app/js/app.js"></script>
-		
+		<script type="text/javascript" src="app/js/controllers/userProfileController.js"></script>
+		<script type="text/javascript" src="app/js/controllers/userAudioController.js"></script>
+				
 		<link type="text/css" rel="stylesheet" href="app/theme/css/materialize.min.css"  media="screen,projection"/>
 		<link type="text/css" rel="stylesheet" href="app/theme/css/materialze-icons.css"  media="screen,projection"/>
 		<link type="text/css" rel="stylesheet" href="app/theme/css/custom.css"  media="screen,projection"/>
 	</head>
 	
 	<body class="vk-extension">
-		<div class="row">
-			<div class="col s2 left-panel" ng-controller="userProfileInfo">
+		<div class="row"  ng-controller="userProfileInfoController">
+			<div class="col s2 left-panel">
 				<div class="row main-menu">
 					<div class="col s12">
 						<img class="circle" id="profile-photo" src="{{userProfilePhoto}}"/>
 					</div>
-					<div class="col s12">
+					<div class="col s12"><!--Messages-->
 						<i class="material-icons">&#xE0BE;</i>
 					</div>
-					<div class="col s12">
+					<div class="col s12" id="audio-menu-btn" ng-click="openMyAudio();"><!--Audio-->
 						<i class="material-icons">&#xE030;</i>
 					</div>
-					<div class="col s12">
+					<div class="col s12"><!--News-->
 						<i class="material-icons">&#xE0C9;</i>
+					</div>
+					<div class="col s12"><!--Settings-->
+						<i class="material-icons">&#xE8B8;</i>
 					</div>
 				</div>
 			</div>
 			<div class="col s10 main-panel">
-
+				<div ng-include="includeURL">
+					
+				</div>
 			</div>
 		</div>
 	</body>
