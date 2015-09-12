@@ -1,4 +1,4 @@
-var VKAuthController = new (function () {
+var AuthController = new (function () {
 	
 	var access_token = "";
 	var current_user_id = "";
@@ -17,7 +17,7 @@ var VKAuthController = new (function () {
 						current_user_id = getUserId(changeInfo.url);
 						chrome.tabs.remove(tabId, function () { });
 						var filds = "photo_50";
-						VkAPIHelper.getUserProfile(current_user_id, filds, access_token, callBackSetCurrentUserProfile)
+						APIHelper.getUserProfile(current_user_id, filds, access_token, callBackSetCurrentUserProfile)
 					}
 				}
 			});

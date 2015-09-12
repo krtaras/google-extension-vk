@@ -1,38 +1,76 @@
-var Player = new (function() {
+var Player = new (function () {
 	soundManager.setup({
 		url: '/app/lib/',
 		flashVersion: 9,
-		onready: function() {
+		onready: function () {
 		}
 	});
 	var currentPlayingSoundId = -1;
 	var playList = new Array();
 	var isLoop = false;
-	
 	var playingSound;
-	
-	var playSound = function() {
-		var audio = playList[currentPlayingSoundId];
-		if (typeof playingSound !== "undefined") {
-			playingSound.destruct();
-		}
-		playingSound = soundManager.createSound({
-			url: audio.url
-		});
-		playingSound.play();
-	}
-	
-	this.init = function(audios, loop) {
+
+	this.init = function (audios, loop) {
 		playList = audios;
 		isLoop = loop;
 		currentPlayingSoundId = 0;
 	}
-	
-	this.play = function() {
-		playSound();
+
+	this.playSound = function (soundId) {
+		for (var i in playList) {
+			if (playList[i].id == soundId) {
+				currentPlayingSoundId = i;
+				break;
+			}
+		}
+		doPlay();
 	}
-	
-	this.next = function() {
+
+	this.play = function () {
+		doPlay();
+	}
+
+	this.next = function () {
+		doNext();
+	}
+
+	this.prev = function () {
+		doPrev();
+	}
+
+	this.stop = function () {
+		doStop();
+	}
+
+	this.toggle = function () {
+		doToggle();
+	}
+
+	var doPlay = function () {
+		doStop();
+		var audio = playList[currentPlayingSoundId];
+		playingSound = soundManager.createSound({
+			url: audio.url,
+			onfinish: function () {
+				doNext();
+			}
+		});
+		playingSound.play();
+	}
+
+	var doStop = function () {
+		if (typeof playingSound !== "undefined") {
+			playingSound.destruct();
+		}
+	}
+
+	var doToggle = function () {
+		if (typeof playingSound !== "undefined") {
+			playingSound.togglePause();
+		}
+	}
+
+	var doNext = function () {
 		var next = currentPlayingSoundId + 1;
 		if (next >= playList.length) {
 			if (isLoop) {
@@ -41,10 +79,10 @@ var Player = new (function() {
 		} else {
 			currentPlayingSoundId = next;
 		}
-		playSound();
+		doPlay();
 	}
 
-	this.prev = function() {
+	var doPrev = function () {
 		var prev = currentPlayingSoundId - 1;
 		if (prev < 0) {
 			if (isLoop) {
@@ -53,6 +91,6 @@ var Player = new (function() {
 		} else {
 			currentPlayingSoundId = prev;
 		}
-		playSound();
+		doPlay();
 	}
 })();

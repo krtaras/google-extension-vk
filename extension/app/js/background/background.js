@@ -1,9 +1,8 @@
 var BackgroundService = new (function() {
 	var currentUser;
-	var audioPlayer;
 	
 	this.reconect = function() {
-		VKAuthController.connect(setCurrentUser);
+		AuthController.connect(setCurrentUser);
 	}
 	
 	this.getMyImgUrl = function() {

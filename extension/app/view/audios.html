@@ -1,8 +1,65 @@
 <div ng-controller="userAudioController">
-	<div ng-repeat="item in userAudios">
-		{{item.title}}
-		<audio controls>
-			<source src="{{trustSrc(item.url)}}" type="audio/mpeg">
-		</audio>
+	<div class="row" style="margin: 0px;">
+		<div class="col s12" style="padding: 0px;">
+			<div class="player">
+				<div class="box">
+					<div class="controls">
+						<div class="title">
+							Sound title 1234567890
+						</div>
+						<div class="pl-actions">
+							<i class="material-icons">&#xE050;</i>
+							<input type="range" />
+						</div>
+					</div>
+					<div class="controls" style="display:flex;">
+						<input type="range" />
+						<label class="time">1:59</label>
+						<div class="sd-actions">
+							<i class="material-icons">&#xE020;</i>
+							<i class="material-icons">&#xE047;</i>
+							<i class="material-icons">&#xE037;</i>
+							<i class="material-icons">&#xE01F;</i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	<div class="row">
+		<div class="col s12" style="padding: 0px;">
+			<div class="row audios">
+				<div class="col s4">
+					<div class="title">
+						Альбоми
+					</div>
+					<div class="albums">
+						<div class="album" ng-class='{"active":activeAlbumId==-1}' ng-click="updateAudios(-1, -1);" >
+							Усі композиції
+						</div>
+						<div ng-repeat="album in audioAlbums" class="album" ng-class='{"active":activeAlbumId=={{$index}}}' ng-click="updateAudios(album.id, $index);">
+							{{album.title}}
+						</div>
+					</div>
+				</div>
+				<div class="col s8" style="border-left: 1px solid #808080; height:100%;">
+					<div class="title">
+						Композиції
+					</div>
+					<div class="playlist">
+						<div ng-repeat="item in userAudios" class="sound">
+							<div class="name">
+								{{item.title}}
+							</div>
+							<div class="play" ng-click="playSound(item.id);">
+								<i class="material-icons">&#xE037;</i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 </div>
