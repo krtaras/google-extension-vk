@@ -9,11 +9,13 @@ var Player = new (function () {
 	var playList = new Array();
 	var isLoop = false;
 	var playingSound;
-
-	this.init = function (audios, loop) {
+	var refreshCallBackFunck;
+	
+	this.init = function (audios, loop, refresh) {
 		playList = audios;
 		isLoop = loop;
 		currentPlayingSoundId = 0;
+		refreshCallBackFunck = refresh;
 	}
 
 	this.playSound = function (soundId) {
@@ -45,7 +47,7 @@ var Player = new (function () {
 	this.toggle = function () {
 		doToggle();
 	}
-
+	
 	var doPlay = function () {
 		doStop();
 		var audio = playList[currentPlayingSoundId];
@@ -53,9 +55,13 @@ var Player = new (function () {
 			url: audio.url,
 			onfinish: function () {
 				doNext();
+			},
+			whileplaying: function () {
+				refreshCallBackFunck(playingSound.position);
 			}
 		});
 		playingSound.play();
+		Player.sound = playingSound;
 	}
 
 	var doStop = function () {
