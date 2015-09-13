@@ -7,21 +7,24 @@ var Player = new (function () {
 	});
 	var currentPlayingSoundId = -1;
 	var playList = new Array();
-	var isLoop = false;
+	var isLoop = true;
 	var playingSound;
-	var refreshCallBackFunck;
+	var playerChangeListener;
+	var volume = 50;
 	
-	this.init = function (audios, loop, refresh) {
+	this.init = function (playerUIChangeListener) {
+		playerChangeListener = playerUIChangeListener;
+	}
+
+	this.setPlayList = function(audios) {
 		playList = audios;
-		isLoop = loop;
 		currentPlayingSoundId = 0;
-		refreshCallBackFunck = refresh;
 	}
 
 	this.playSound = function (soundId) {
 		for (var i in playList) {
 			if (playList[i].id == soundId) {
-				currentPlayingSoundId = i;
+				currentPlayingSoundId = parseInt(i);
 				break;
 			}
 		}
@@ -48,18 +51,33 @@ var Player = new (function () {
 		doToggle();
 	}
 	
+	this.updatePosition = function(range) {
+		var max = playingSound.duration;
+		var newPosition = (range * max) / 10000;
+		playingSound.setPosition(newPosition);
+	}
+	
+	this.updateVolume = function(newVolume) {
+		volume = newVolume;
+		playingSound.setVolume(volume);
+	}
+	
 	var doPlay = function () {
 		doStop();
 		var audio = playList[currentPlayingSoundId];
 		playingSound = soundManager.createSound({
 			url: audio.url,
+			onplay: function () {
+				playerChangeListener(0, 10000, audio.title);
+			},
 			onfinish: function () {
 				doNext();
 			},
 			whileplaying: function () {
-				refreshCallBackFunck(playingSound.position);
+				playerChangeListener(playingSound.position, playingSound.duration, audio.title, volume);
 			}
 		});
+		playingSound.setVolume(volume);
 		playingSound.play();
 		Player.sound = playingSound;
 	}

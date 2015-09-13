@@ -1,7 +1,9 @@
 .vk-extension {
 	width: 450px;
 	height: 400px;
-	background-color: gray;
+	background-color: white;
+	margin: 0px;
+	font-size: 11px;
 }
 
 .vk-extension .row {
@@ -19,6 +21,10 @@
 .vk-extension .left-panel .main-menu {
 	font-size: 16px;
 	text-align: center;
+}
+
+.vk-extension .left-panel .main-menu .circle {
+	border-radius: 50%;
 }
 
 .vk-extension .left-panel .main-menu i {
@@ -53,7 +59,7 @@
 }
 
 .vk-extension .player .controls {
-	overflow: auto;
+	/*overflow: auto;*/
 	width: 100%;
 }
 
@@ -62,11 +68,13 @@
 	font-weight: bold;
 	font-family: monospace;
 	float: left;
-	max-width: 245px;
+	max-width: 242px;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 18px;
+    height: 15px;
 	white-space: nowrap;
+	padding-top: 3px;
+    padding-left: 2px;
 }
 
 .vk-extension .player .pl-actions {
@@ -103,17 +111,33 @@
 	color: #365475;
 }
 
-.vk-extension .player input[type="range"] {
-	border: none;
-	margin: 1px;
+.vk-extension .player input[type=range]{
+    -webkit-appearance: none;
+    border: none;
+	background-color: transparent;
+	width: 100%;
 }
 
-.vk-extension .player input[type="range"]::-webkit-slider-thumb {
-	background-color: #365475;
-	margin-top: -3px;
-	height: 10px;
-	width: 10px;
+.vk-extension .player input[type=range]::-webkit-slider-runnable-track {
+    border: none;
+	height: 4px;
+	background: #c2c0c2;
 }
+
+.vk-extension .player input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: #365475;
+    margin-top: -3px;
+}
+
+.vk-extension .player input[type=range]:focus {
+    outline: none;
+}
+
 
 .vk-extension .audios {
 	height: 350px;
@@ -136,11 +160,14 @@
 }
 
 .vk-extension .audios .albums .album {
-	font-size: 12px;
+	font-size: 11px;
 	padding: 5px;
 	color: #365475;
 	cursor: pointer;
 	font-weight: bold;
+	overflow: hidden;
+    text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .vk-extension .audios .albums .album:hover {
@@ -157,7 +184,6 @@
 }
 
 .vk-extension .audios .sound {
-	margin: 5px;
     overflow: auto;
 	padding: 5px;
 	cursor: pointer;
@@ -175,6 +201,10 @@
 	float: left;
     color: #365475;
 	font-weight: bold;
+	overflow: hidden;
+    text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 195px;
 }
 
 .vk-extension .audios .sound .play {
