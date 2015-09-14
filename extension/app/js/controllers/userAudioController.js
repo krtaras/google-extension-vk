@@ -116,6 +116,7 @@
                             var time = state.position;
                             $scope.position = time;
                             $scope.name = state.displayName;
+                            $scope.activeTrackId = state.selectedTrackId;
                             if (!$scope.rangeInFocus) {
                                 $scope.range = range;
                             }
