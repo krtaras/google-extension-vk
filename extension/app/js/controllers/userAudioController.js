@@ -7,14 +7,20 @@
     var Player = chrome.extension.getBackgroundPage().Player;
     app.controller(controllerName, ["$scope", "$sce",
         function UserAudioController($scope, $sce) {
-            $scope.userAudios = [];
+            window.name = "AudioPlayer";
+            $scope.albumTracks = [];
             $scope.audioAlbums = [];
-            $scope.activeAlbumId = -1;
+
+            $scope.activeAlbumId = -2;
+            $scope.activeTrackId = -2;
             
             $scope.position = 0;
             $scope.name = "";
             $scope.range = 0;
             $scope.volume = 50;
+            $scope.tmpVomule = 0;
+            $scope.isPlaying = false;
+            $scope.isStoped = true;
             
             $scope.rangeInFocus = false;
             $scope.volumeInFocus = false;
@@ -27,16 +33,16 @@
                 });
             }
             
-            $scope.updateAudios = function(albumId, index) {
-                $scope.activeAlbumId = index;
+            $scope.updateAudios = function(albumId) {
+                $scope.activeAlbumId = albumId;
                 APIHelper.getAlbumAudios(AuthController.getCurrentUserId(), AuthController.getAccessToken(), albumId, function(data){
                     $scope.$apply(function(){
-                        $scope.userAudios = data.response.items;
+                        $scope.albumTracks = data.response.items;
                     });
                 });
             }
             
-            $scope.updateSoundPosition = function() {
+            $scope.updateTrackPosition = function() {
                 Player.updatePosition($scope.range);
                 $scope.rangeInFocus = false;
             }
@@ -46,33 +52,84 @@
                 $scope.volumeInFocus = false;
             }
             
-            $scope.playSound = function(soundId) {
-                Player.setPlayList($scope.userAudios);
-                Player.playSound(soundId);
+            $scope.playTrack = function(trackId) {
+                $scope.name = "loading..."
+                $scope.activeTrackId = trackId;
+                Player.setPlayList($scope.albumTracks, $scope.activeAlbumId);
+                Player.playTrack(trackId);
+            }
+            
+            $scope.playNext = function() {
+                $scope.name = "loading..."
+                Player.next();
+                $scope.pageRefresh();
+            }
+            
+            $scope.playBack = function() {
+                $scope.name = "loading..."
+                Player.prev();
+                $scope.pageRefresh();
+            }
+            
+            $scope.stopPlay = function() {
+                $scope.isPlaying = false;
+                $scope.isStoped = true;
+                Player.stop();
+            }
+            
+            $scope.play = function() {
+                $scope.name = "loading..."
+                Player.setPlayList($scope.albumTracks, $scope.activeAlbumId);
+                Player.playTrack($scope.activeTrackId);
+            }
+            
+            $scope.togglePlay = function() {
+                if ($scope.isStoped && $scope.activeTrackId > 0) {
+                    $scope.play();
+                    $scope.isStoped = false;
+                } else {
+                    $scope.isPlaying = !$scope.isPlaying;
+                    Player.toggle();
+                }
             }
             
             $scope.trustSrc = function(src) {
                 return $sce.trustAsResourceUrl(src);
             }
             
-            $scope.updateAlbums();
-            Player.init(
-                function(position, max, name, volume) {
-                    $scope.$apply(function () {
-                        var range = (position * 10000) / max;
-                        var time = position;
-                        $scope.position = time;
-                        $scope.name = name;
-                        if (!$scope.rangeInFocus) {
-                            $scope.range = range;
-                        }
-                        if (!$scope.volumeInFocus) {
-                            $scope.volume = volume;
-                        }
-                        console.log($scope.range);
-                    });
+            $scope.pageRefresh = function() {
+                var state = Player.getState();
+                $scope.activeAlbumId = state.selectedAlbumId;
+                $scope.activeTrackId = state.selectedTrackId;
+                $scope.name = state.displayName;
+                $scope.updateAlbums();
+                if ($scope.activeAlbumId != -2) {
+                    $scope.updateAudios($scope.activeAlbumId);
                 }
-            );
+                if (state.isOnPause) {
+                    $scope.isStoped = false;
+                }
+                Player.init(
+                    function(state) {
+                        $scope.$apply(function () {
+                            var range = (state.position * 10000) / state.duration;
+                            var time = state.position;
+                            $scope.position = time;
+                            $scope.name = state.displayName;
+                            if (!$scope.rangeInFocus) {
+                                $scope.range = range;
+                            }
+                            if (!$scope.volumeInFocus) {
+                                $scope.volume = state.volume;
+                            }
+                            $scope.isPlaying = true;
+                            $scope.isStoped = false;
+                            console.log($scope.range);
+                        });
+                    }
+                );
+            }
+            $scope.pageRefresh();
         }
     ]);
 })();

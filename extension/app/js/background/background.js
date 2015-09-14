@@ -1,6 +1,10 @@
 var BackgroundService = new (function() {
 	var currentUser;
 	
+	this.state = {
+		openPage: ""
+	}
+	
 	this.reconect = function() {
 		AuthController.connect(setCurrentUser);
 	}

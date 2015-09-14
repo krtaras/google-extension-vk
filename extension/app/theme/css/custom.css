@@ -6,6 +6,22 @@
 	font-size: 11px;
 }
 
+.vk-extension .under-construction {
+	text-align: center;
+    color: gainsboro;
+    font-size: 45px;
+    font-style: italic;
+    font-family: sans-serif;
+}
+
+.vk-extension .under-construction i {
+	font-size: 250px;
+}
+
+.vk-extension .hidden {
+	display: none;
+}
+
 .vk-extension .row {
 	margin-bottom: 0px;
 }
@@ -85,11 +101,6 @@
 
 .vk-extension .player .pl-actions i {
 	font-size: 18px;
-	cursor: pointer;
-}
-
-.vk-extension .player .pl-actions i:hover {
-	color: #365475;
 }
 
 .vk-extension .player .controls .time {

@@ -5,6 +5,7 @@
     var background = chrome.extension.getBackgroundPage();
     app.controller(controllerName, ["$scope", 
         function UserProfileController($scope) {
+            window.name = "UserInfo";
             $scope.userProfilePhoto = background.BackgroundService.getMyImgUrl();
             $scope.includeURL = "/app/view/empty.html";
             $scope.openMyInfo = function() {

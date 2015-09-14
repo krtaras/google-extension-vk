@@ -5,26 +5,41 @@ var Player = new (function () {
 		onready: function () {
 		}
 	});
-	var currentPlayingSoundId = -1;
 	var playList = new Array();
-	var isLoop = true;
-	var playingSound;
+	var currentTrackIndex = -1;
 	var playerChangeListener;
-	var volume = 50;
+	
+	var isLoop = true;
+	var playingTrack;
+	
+	var state = {
+		selectedTrackId: -2,
+		selectedAlbumId: -2,
+		isOnPause: false,
+		displayName: "",
+		position: 0,
+		duration: 10000,
+		volume: 50
+	}
 	
 	this.init = function (playerUIChangeListener) {
 		playerChangeListener = playerUIChangeListener;
 	}
 
-	this.setPlayList = function(audios) {
-		playList = audios;
-		currentPlayingSoundId = 0;
+	this.getState = function() {
+		return state;
+	} 
+	
+	this.setPlayList = function(albumItems, albumId) {
+		playList = albumItems;
+		state.selectedAlbumId = albumId;
+		currentTrackIndex = 0;
 	}
 
-	this.playSound = function (soundId) {
+	this.playTrack = function (TrackId) {
 		for (var i in playList) {
-			if (playList[i].id == soundId) {
-				currentPlayingSoundId = parseInt(i);
+			if (playList[i].id == TrackId) {
+				currentTrackIndex = parseInt(i);
 				break;
 			}
 		}
@@ -52,68 +67,81 @@ var Player = new (function () {
 	}
 	
 	this.updatePosition = function(range) {
-		var max = playingSound.duration;
+		var max = playingTrack.duration;
 		var newPosition = (range * max) / 10000;
-		playingSound.setPosition(newPosition);
+		playingTrack.setPosition(newPosition);
 	}
 	
 	this.updateVolume = function(newVolume) {
-		volume = newVolume;
-		playingSound.setVolume(volume);
+		state.volume = newVolume;
+		playingTrack.setVolume(state.volume);
 	}
 	
 	var doPlay = function () {
 		doStop();
-		var audio = playList[currentPlayingSoundId];
-		playingSound = soundManager.createSound({
+		var audio = playList[currentTrackIndex];
+		state.selectedTrackId = audio.id;
+		state.displayName = audio.title;
+		playingTrack = soundManager.createSound({
 			url: audio.url,
 			onplay: function () {
-				playerChangeListener(0, 10000, audio.title);
+				var popups = chrome.extension.getViews({type: "popup"});
+				if (popups.length > 0 && popups[0].name == "AudioPlayer") {
+					playerChangeListener(state);
+				}
 			},
 			onfinish: function () {
 				doNext();
 			},
 			whileplaying: function () {
-				playerChangeListener(playingSound.position, playingSound.duration, audio.title, volume);
+				state.duration = playingTrack.duration;
+				state.position = playingTrack.position;
+				var popups = chrome.extension.getViews({type: "popup"});
+				if (popups.length > 0 && popups[0].name == "AudioPlayer") {
+					playerChangeListener(state);
+				}
 			}
 		});
-		playingSound.setVolume(volume);
-		playingSound.play();
-		Player.sound = playingSound;
+		playingTrack.setVolume(state.volume);
+		playingTrack.play();
+		Player.Track = playingTrack;
 	}
 
 	var doStop = function () {
-		if (typeof playingSound !== "undefined") {
-			playingSound.destruct();
+		if (typeof playingTrack !== "undefined") {
+			playingTrack.destruct();
 		}
 	}
 
 	var doToggle = function () {
-		if (typeof playingSound !== "undefined") {
-			playingSound.togglePause();
+		if (typeof playingTrack !== "undefined") {
+			playingTrack.togglePause();
+			if (playingTrack.paused) {
+				state.isOnPause = true;
+			}
 		}
 	}
 
 	var doNext = function () {
-		var next = currentPlayingSoundId + 1;
+		var next = currentTrackIndex + 1;
 		if (next >= playList.length) {
 			if (isLoop) {
-				currentPlayingSoundId = 0;
+				currentTrackIndex = 0;
 			}
 		} else {
-			currentPlayingSoundId = next;
+			currentTrackIndex = next;
 		}
 		doPlay();
 	}
 
 	var doPrev = function () {
-		var prev = currentPlayingSoundId - 1;
+		var prev = currentTrackIndex - 1;
 		if (prev < 0) {
 			if (isLoop) {
-				currentPlayingSoundId = playList.length - 1;
+				currentTrackIndex = playList.length - 1;
 			}
 		} else {
-			currentPlayingSoundId = prev;
+			currentTrackIndex = prev;
 		}
 		doPlay();
 	}
