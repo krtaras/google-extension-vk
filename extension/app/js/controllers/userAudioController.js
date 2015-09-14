@@ -35,7 +35,7 @@
             
             $scope.updateAudios = function(albumId) {
                 $scope.activeAlbumId = albumId;
-                APIHelper.getAlbumAudios(AuthController.getCurrentUserId(), AuthController.getAccessToken(), albumId, function(data){
+                APIHelper.getAlbumTracks(AuthController.getCurrentUserId(), AuthController.getAccessToken(), albumId, function(data){
                     $scope.$apply(function(){
                         $scope.albumTracks = data.response.items;
                     });

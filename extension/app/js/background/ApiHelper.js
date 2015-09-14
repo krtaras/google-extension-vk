@@ -5,7 +5,7 @@ var APIHelper = new (function() {
 		callMethod(url, callbackFunc);
 	},
 	
-	this.getAlbumAudios = function(userId, access_token, albumId, callbackFunc) {
+	this.getAlbumTracks = function(userId, access_token, albumId, callbackFunc) {
 		var album = "";
 		if (albumId > 0) {
 			album = "&album_id=" + albumId;
@@ -16,6 +16,11 @@ var APIHelper = new (function() {
 	
 	this.getAudioAlbums = function(userId, access_token, callbackFunc) {
 		var url = "https://api.vk.com/method/audio.getAlbums?owner_id=" + userId + "&access_token=" + access_token + "&count=100&v=5.37";
+		callMethod(url, callbackFunc);
+	}
+	
+	this.getNews = function(userId, access_token, callbackFunc) {
+		var url = "https://api.vk.com/method/newsfeed.get?owner_id=" + userId + "&access_token=" + access_token + "&filters=post&count=100";
 		callMethod(url, callbackFunc);
 	}
 	
