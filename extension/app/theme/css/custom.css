@@ -276,19 +276,30 @@
 }
 
 .vk-extension .news .post {
-	margin: 5px;
+	padding: 10px;
+    font-size: 12px;
 } 
 
 .vk-extension .news .post .title {
-	
+	color: #365475;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .vk-extension .news .post .description {
-	
+	text-align: justify;
+	max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .vk-extension .news .post .attachment {
-	
+	text-align: center;
+}
+
+.vk-extension .news .post .attachment img {
+	max-height: 200px;
 }
 
 .vk-extension .news .post .info {

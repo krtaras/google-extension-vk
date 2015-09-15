@@ -1,3 +1,11 @@
 <div class="news" ng-controller="userNewsController">
-
+	<div class="post" ng-repeat="post in news">
+		<div class="title">5 лучших фильмов</div>
+		<div class="description" ng-bind-html="trustHTML(post.text)">
+		</div>
+		<div class="attachment">
+			<img ng-class='{"hidden":getAttachmentImage(post.attachments)==""}' src="{{getAttachmentImage(post.attachments)}}" />
+		</div>
+		<div></div>
+	</div>
 </div>

@@ -20,7 +20,7 @@ var APIHelper = new (function() {
 	}
 	
 	this.getNews = function(userId, access_token, callbackFunc) {
-		var url = "https://api.vk.com/method/newsfeed.get?owner_id=" + userId + "&access_token=" + access_token + "&filters=post&count=100";
+		var url = "https://api.vk.com/method/newsfeed.get?owner_id=" + userId + "&access_token=" + access_token + "&filters=post&count=100&v=5.37";
 		callMethod(url, callbackFunc);
 	}
 	
