@@ -3,5 +3,6 @@
      angular.module('googleExtensionVK', []);
 })();
 
-$(document).ready(function (){
-});
+function getSpinnerHtml() {
+    return '<div class="spinner"></div>';
+}

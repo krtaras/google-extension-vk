@@ -1,11 +1,11 @@
 <div class="news" ng-controller="userNewsController">
-	<div class="post" ng-repeat="post in news">
-		<div class="title">5 лучших фильмов</div>
-		<div class="description" ng-bind-html="trustHTML(post.text)">
+	<div id="news-loadin"></div>
+	<div ng-repeat="post in news" class="post" ng-click="openPost('https://vk.com/feed?w=wall' + post.source_id + '_' + post.post_id)">
+		<div class="title">{{getPostTitle(post.source_id);}}</div>
+		<div class="description" ng-bind-html="getPostText(post)">
 		</div>
 		<div class="attachment">
-			<img ng-class='{"hidden":getAttachmentImage(post.attachments)==""}' src="{{getAttachmentImage(post.attachments)}}" />
+			<img ng-class='{"hidden":getAttachmentImage(post)==""}' src="{{getAttachmentImage(post)}}" />
 		</div>
-		<div></div>
 	</div>
 </div>
