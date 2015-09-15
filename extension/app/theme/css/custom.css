@@ -340,10 +340,10 @@
 
 .vk-extension .news .post .description {
 	text-align: justify;
-	max-height: 100px;
+	max-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
-	white-space: nowrap;
+	white-space: normal;
 	color: black;
 }
 
