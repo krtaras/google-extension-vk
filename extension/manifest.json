@@ -3,7 +3,7 @@
 
   "name": "VK extension",
   "description": "VK extension",
-  "version": "1.0.91415",
+  "version": "1.0.91515",
 
   "browser_action": {
     "default_icon": "icons/icon.png",
