@@ -7,23 +7,45 @@
     app.controller(controllerName, ["$scope",
         function UserMessagesController($scope) {
             $scope.dialogs = [];
+            $scope.dialogMessages = [];
+            
             $scope.getUserDialogs = function () {
                 APIHelper.getDialogs(AuthController.getCurrentUserId(), AuthController.getAccessToken(), function (data) {
                     $scope.$apply(function () {
-                        console.log(data.response);
                         $scope.dialogs = data.response.items;
-                        console.log($scope.dialogs);
                     });
                 });
             }
 
+            $scope.getDialogMessages = function(dialogId, dialogType) {
+                if (dialogType == "msg") {
+                    APIHelper.getMessagesFromPrivateChat(AuthController.getCurrentUserId(), AuthController.getAccessToken(), dialogId, function (data) {
+                        $scope.$apply(function () {
+                            console.log(data.response);
+                            $scope.dialogMessages = data.response.items;
+                        });
+                    });
+                }
+                if (dialogType == "chat") {
+                    APIHelper.getMessagesFromGroupChat(AuthController.getCurrentUserId(), AuthController.getAccessToken(), dialogId, function (data) {
+                        $scope.$apply(function () {
+                            console.log(data.response);
+                            $scope.dialogMessages = data.response.items;
+                        });
+                    });
+                }
+                
+            }
+            
             $scope.getDialogConvertedItem = function (dialog) {
                 var result = {
+                    type: "",
                     id: -1,
                     photo: "",
                     title: "",
                     unread: ""
                 }
+                result.type = dialog.type;
                 if (dialog.type == "msg") {
                     var userDialog = dialog.object[0];
                     result.id = userDialog.id;

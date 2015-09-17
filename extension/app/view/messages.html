@@ -6,7 +6,7 @@
 					Діалоги
 				</div>
 				<div class="dialogs">
-					<div class="dialog" ng-repeat="dialog in dialogs" ng-init="item = getDialogConvertedItem(dialog)">
+					<div class="dialog" ng-repeat="dialog in dialogs" ng-init="item = getDialogConvertedItem(dialog)" ng-click="getDialogMessages(item.id, item.type)">
 						<div class="prf-img">
 							<img src="{{item.photo}}" width="30px" height="30px"/>
 						</div>
