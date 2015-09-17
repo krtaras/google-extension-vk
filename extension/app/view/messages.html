@@ -1,4 +1,78 @@
-<div class="under-construction">
-	<i class="material-icons">&#xE8B2;</i>
-  	Under construction!!!
+<div class="row" ng-controller="userMessagesController">
+	<div class="col s12" style="padding: 0px;">
+		<div class="row messages">
+			<div class="col s4">
+				<div class="title">
+					Діалоги
+				</div>
+				<div class="dialogs">
+					<div class="dialog" ng-repeat="dialog in dialogs" ng-init="item = getDialogConvertedItem(dialog)">
+						<div class="prf-img">
+							<img src="{{item.photo}}" width="30px" height="30px"/>
+						</div>
+						<div class="prf-name">
+							{{item.title}}
+						</div>
+						<div class="new-msg">
+							{{item.unread}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col s8" style="border-left: 1px solid #808080; height:100%;">
+				<div class="title">
+					&nbsp;
+				</div>
+				<div class="dialog-msgs">
+					<div class="msgs-list">
+						<div class="msg">
+							<div class="msg-title">
+								<div class="name">
+									Qwerwerwer
+								</div>
+								<div class="time">
+									9/17/15 10:00
+								</div>
+							</div>
+							<div class="msg-text">
+								weqwuroqiwruqiworuwqrpoqewirpoqwieproqwirpowqirpoweripoqweirpqwirpoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqw
+							</div>
+						</div>
+						<div class="msg">
+							<div class="msg-title">
+								<div class="name">
+									Qwerwerwer
+								</div>
+								<div class="time">
+									9/17/15 10:00
+								</div>
+							</div>
+							<div class="msg-text">
+								weqwuroqiwruqiworuwqrpoqewirpoqwieproqwirpowqirpoweripoqweirpqwirpoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqw
+							</div>
+						</div>
+						<div class="msg">
+							<div class="msg-title">
+								<div class="name">
+									Qwerwerwer
+								</div>
+								<div class="time">
+									9/17/15 10:00
+								</div>
+							</div>
+							<div class="msg-text">
+								weqwuroqiwruqiworuwqrpoqewirpoqwieproqwirpowqirpoweripoqweirpqwirpoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqw
+							</div>
+						</div>
+					</div>
+					<div class="msgs-send">
+						<textarea></textarea>
+						<div>
+							<i class="material-icons">&#xE163;</i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

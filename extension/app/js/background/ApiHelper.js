@@ -24,6 +24,11 @@ var APIHelper = new (function() {
 		callMethod(url, callbackFunc);
 	}
 	
+	this.getDialogs = function(userId, access_token, callbackFunc) {
+		var url = "https://api.vk.com/method/execute.getUserDialogs?owner_id=" + userId + "&access_token=" + access_token + "&v=5.37";
+		callMethod(url, callbackFunc);
+	}
+	
 	var callMethod = function(url, callbackFunc) {
 		$.get(url, function(data){
 			callbackFunc(data);
