@@ -6,7 +6,7 @@
 					Діалоги
 				</div>
 				<div class="dialogs">
-					<div class="dialog" ng-repeat="dialog in dialogs" ng-init="item = getDialogConvertedItem(dialog)" ng-click="getDialogMessages(item.id, item.type)">
+					<div class="dialog" scroll-item ng-repeat="dialog in dialogs" ng-init="item = getDialogConvertedItem(dialog)" ng-click="getDialogMessages(item.id, item.type)">
 						<div class="prf-img">
 							<img src="{{item.photo}}" width="30px" height="30px"/>
 						</div>
@@ -24,44 +24,20 @@
 					&nbsp;
 				</div>
 				<div class="dialog-msgs">
-					<div class="msgs-list">
-						<div class="msg">
+					<div class="msgs-list" id="dialogs-msgs">
+						<div class="msg" ng-repeat="msg in dialogMessages" ng-init="item = getConvertedMessage(msg)">
 							<div class="msg-title">
 								<div class="name">
-									Qwerwerwer
+									{{item.title}}
 								</div>
 								<div class="time">
-									9/17/15 10:00
+									{{item.time}}
 								</div>
 							</div>
 							<div class="msg-text">
-								weqwuroqiwruqiworuwqrpoqewirpoqwieproqwirpowqirpoweripoqweirpqwirpoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqw
+								{{item.text}}
 							</div>
-						</div>
-						<div class="msg">
-							<div class="msg-title">
-								<div class="name">
-									Qwerwerwer
-								</div>
-								<div class="time">
-									9/17/15 10:00
-								</div>
-							</div>
-							<div class="msg-text">
-								weqwuroqiwruqiworuwqrpoqewirpoqwieproqwirpowqirpoweripoqweirpqwirpoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqw
-							</div>
-						</div>
-						<div class="msg">
-							<div class="msg-title">
-								<div class="name">
-									Qwerwerwer
-								</div>
-								<div class="time">
-									9/17/15 10:00
-								</div>
-							</div>
-							<div class="msg-text">
-								weqwuroqiwruqiworuwqrpoqewirpoqwieproqwirpowqirpoweripoqweirpqwirpoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqwoqw
+							<div class="msg-attachment" ng-bind-html="item.attachmentHTML">
 							</div>
 						</div>
 					</div>

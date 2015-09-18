@@ -450,6 +450,10 @@
     font-size: 11px;
 }
 
+.vk-extension .messages .dialog-msgs .msgs-list .msg .msg-attachment img {
+    max-width: 235px;
+}
+
 .vk-extension .messages .dialog-msgs .msgs-send {
 	display: flex;
 	padding: 5px;

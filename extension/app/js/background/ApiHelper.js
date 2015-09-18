@@ -29,13 +29,8 @@ var APIHelper = new (function() {
 		callMethod(url, callbackFunc);
 	}
 	
-	this.getMessagesFromPrivateChat = function(userId, access_token, dialogId, callbackFunc) {
-		var url = "https://api.vk.com/method/messages.getHistory?owner_id=" + userId + "&user_id=" + dialogId + "&access_token=" + access_token + "&count=200&v=5.37";
-		callMethod(url, callbackFunc);
-	}
-	
-	this.getMessagesFromGroupChat = function(userId, access_token, dialogId, callbackFunc) {
-		var url = "https://api.vk.com/method/messages.getHistory?owner_id=" + userId + "&chat_id=" + dialogId + "&access_token=" + access_token + "&count=200&v=5.37";
+	this.getMessagesFromDialog = function(userId, access_token, dialogType, dialogId, callbackFunc) {
+		var url = "https://api.vk.com/method/execute.getChatMessages?owner_id=" + userId + "&type=" + dialogType + "&dialog_id=" + dialogId + "&access_token=" + access_token + "&count=200&v=5.37";
 		callMethod(url, callbackFunc);
 	}
 	
