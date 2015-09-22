@@ -10,6 +10,8 @@
             $scope.dialogMessages = [];
             $scope.dialogUsers = [];
             
+            $scope.selectedDialog = -1;
+            
             $scope.getUserDialogs = function () {
                 APIHelper.getDialogs(AuthController.getCurrentUserId(), AuthController.getAccessToken(), function (data) {
                     $scope.$apply(function () {
@@ -19,6 +21,7 @@
             }
 
             $scope.getDialogMessages = function(dialogId, dialogType) {
+                $scope.selectedDialog = dialogId;
                 APIHelper.getMessagesFromDialog(AuthController.getCurrentUserId(), AuthController.getAccessToken(), dialogType, dialogId, function (data) {
                     $scope.$apply(function () {
                         console.log(data.response);
