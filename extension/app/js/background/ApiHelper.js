@@ -34,6 +34,11 @@ var APIHelper = new (function() {
 		callMethod(url, callbackFunc);
 	}
 	
+	this.getFriends = function(userId, access_token, callbackFunc) {
+		var url = "https://api.vk.com/method/friends.get?user_id=" + userId + "&fields=photo_50&order=hints&access_token=" + access_token + "&name_case=abl&v=5.37";
+		callMethod(url, callbackFunc);
+	}
+	
 	var callMethod = function(url, callbackFunc) {
 		$.get(url, function(data){
 			callbackFunc(data);

@@ -64,19 +64,17 @@
 }
 
 .vk-extension ::-webkit-scrollbar {
-    width: 5px;
+    width: 2px;
 }
  
 .vk-extension ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
-	box-shadow: inset 0 0 6px rgba(0,0,0,0.2); 
-    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
 }
  
 .vk-extension ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.4); 
 }
 
 .vk-extension .row {
@@ -477,4 +475,36 @@
 
 .vk-extension .messages .dialog-msgs .msgs-send i:hover {
 	color:#365475
+}
+
+.vk-extension .messages .dialog-msgs .send-new {
+	
+}
+
+.vk-extension .messages .dialog-msgs .send-new .friends {
+	overflow-x: hidden;
+    overflow-y: scroll;
+    height: 300px;
+    margin: 10px;
+    border: 1px solid #F0F1F2;
+}
+
+.vk-extension .messages .dialog-msgs .send-new .friends .item {
+    display: flex;
+    padding: 5px;
+	cursor: pointer;
+}
+
+.vk-extension .messages .dialog-msgs .send-new .friends .item:hover {
+	background-color: #F0F1F2;
+}
+
+.vk-extension .messages .dialog-msgs .send-new .friends .item.active {
+	background-color: #365475;
+	color: white;
+}
+
+.vk-extension .messages .dialog-msgs .send-new .friends .item img {
+	width: 30px;
+    height: 30px;
 }

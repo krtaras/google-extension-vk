@@ -12,6 +12,22 @@
             
             $scope.selectedDialog = -1;
             
+            $scope.friends = [];
+            $scope.selectedFriendId = -1;
+            
+            $scope.getFriends = function() {
+                APIHelper.getFriends(AuthController.getCurrentUserId(), AuthController.getAccessToken(), function (data) {
+                    $scope.$apply(function () {
+                        console.log(data.response);
+                        $scope.friends = data.response.items;
+                    });
+                });
+            }
+            
+            $scope.selectFriend = function(friendId) {
+                $scope.selectedFriendId = friendId;
+            }
+            
             $scope.getUserDialogs = function () {
                 APIHelper.getDialogs(AuthController.getCurrentUserId(), AuthController.getAccessToken(), function (data) {
                     $scope.$apply(function () {
@@ -96,6 +112,7 @@
                 return $sce.trustAsHtml(html);
             }
             
+            $scope.getFriends();
             $scope.getUserDialogs();
             $('#dialogs-msgs').bind('DOMNodeInserted DOMSubtreeModified ', function(event) {
                 var objDiv = document.getElementById("dialogs-msgs");

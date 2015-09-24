@@ -24,7 +24,18 @@
 					&nbsp;
 				</div>
 				<div class="dialog-msgs">
-					<div class="msgs-list" id="dialogs-msgs">
+					<div ng-class='{"hidden":selectedDialog > -1}' class="send-new">
+						<label>Надіслати повідомлення:</label>
+						<div class="friends">
+							<div class="item" ng-repeat="friend in friends" ng-class='{"active":selectedFriendId=={{friend.id}}}' ng-click="selectFriend(friend.id)">
+								<img src="{{friend.photo_50}}" />
+								<div>
+									{{friend.first_name}} {{friend.last_name}} 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div ng-class='{"hidden":selectedDialog == -1}' class="msgs-list" id="dialogs-msgs">
 						<div class="msg" ng-repeat="msg in dialogMessages" ng-init="item = getConvertedMessage(msg)">
 							<div class="msg-title">
 								<div class="name">
