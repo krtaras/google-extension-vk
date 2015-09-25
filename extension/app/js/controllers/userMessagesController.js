@@ -11,9 +11,12 @@
             $scope.dialogUsers = [];
             
             $scope.selectedDialog = -1;
+            $scope.selectedDialogType = "msg";
             
             $scope.friends = [];
             $scope.selectedFriendId = -1;
+            
+            $scope.enteredText = "";
             
             $scope.getFriends = function() {
                 APIHelper.getFriends(AuthController.getCurrentUserId(), AuthController.getAccessToken(), function (data) {
@@ -38,13 +41,17 @@
 
             $scope.getDialogMessages = function(dialogId, dialogType) {
                 $scope.selectedDialog = dialogId;
-                APIHelper.getMessagesFromDialog(AuthController.getCurrentUserId(), AuthController.getAccessToken(), dialogType, dialogId, function (data) {
-                    $scope.$apply(function () {
-                        console.log(data.response);
-                        $scope.dialogMessages = data.response.items;
-                        $scope.dialogUsers = data.response.users;
+                $scope.selectedDialogType = dialogType;
+                if (dialogId != -1) {
+                    APIHelper.getMessagesFromDialog(AuthController.getCurrentUserId(), AuthController.getAccessToken(), dialogType, dialogId, function (data) {
+                        $scope.$apply(function () {
+                            console.log(data.response);
+                            $scope.dialogMessages = data.response.items;
+                            $scope.dialogUsers = data.response.users;
+                            $scope.getUserDialogs();
+                        });
                     });
-                });
+                }
             }
             
             $scope.getConvertedMessage = function(msg) {
@@ -106,6 +113,20 @@
                 }
 
                 return result;
+            }
+            
+            $scope.sendMessage = function() {
+                if ($scope.enteredText != "") {
+                    if (($scope.selectedDialog == -1 && $scope.selectedFriendId != -1) || ($scope.selectedDialog != -1 && $scope.selectedDialogType != "")) {
+                        if ($scope.selectedDialog == -1 && $scope.selectedFriendId != -1) {
+                            $scope.selectedDialog = $scope.selectedFriendId;
+                        }
+                        APIHelper.sendMessage($scope.selectedDialog, $scope.selectedDialogType,  $scope.enteredText, AuthController.getAccessToken(), function(){
+                            $scope.enteredText = "";
+                            $scope.getDialogMessages($scope.selectedDialog, $scope.selectedDialogType);
+                        });
+                    } 
+                }
             }
             
             $scope.trustHTML = function(html) {

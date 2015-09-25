@@ -6,6 +6,11 @@
 					Діалоги
 				</div>
 				<div class="dialogs">
+					<div class="dialog" scroll-item ng-class='{"active":selectedDialog==-1}' ng-click='getDialogMessages(-1, "msg")'>
+						<div>
+							Нове повідомлення
+						</div>
+					</div>
 					<div class="dialog" scroll-item ng-repeat="dialog in dialogs" ng-init="item = getDialogConvertedItem(dialog)" ng-class='{"active":selectedDialog=={{item.id}}}' ng-click="getDialogMessages(item.id, item.type)">
 						<div class="prf-img">
 							<img src="{{item.photo}}" width="30px" height="30px"/>
@@ -25,11 +30,11 @@
 				</div>
 				<div class="dialog-msgs">
 					<div ng-class='{"hidden":selectedDialog > -1}' class="send-new">
-						<label>Надіслати повідомлення:</label>
+						<label style="padding-left: 5px;">Виберіть друга, якоми ви бажаєте надіслати повідомлення:</label>
 						<div class="friends">
 							<div class="item" ng-repeat="friend in friends" ng-class='{"active":selectedFriendId=={{friend.id}}}' ng-click="selectFriend(friend.id)">
 								<img src="{{friend.photo_50}}" />
-								<div>
+								<div style="padding: 5px;">
 									{{friend.first_name}} {{friend.last_name}} 
 								</div>
 							</div>
@@ -53,9 +58,9 @@
 						</div>
 					</div>
 					<div class="msgs-send">
-						<textarea></textarea>
-						<div>
-							<i class="material-icons">&#xE163;</i>
+						<textarea ng-model="enteredText"></textarea>
+						<div ng-click="sendMessage()">
+							<i class="material-icons" >&#xE163;</i>
 						</div>
 					</div>
 				</div>

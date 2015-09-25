@@ -478,13 +478,15 @@
 }
 
 .vk-extension .messages .dialog-msgs .send-new {
-	
+	font-size: 11px;
+    color: #365475;
+    font-weight: bold;
 }
 
 .vk-extension .messages .dialog-msgs .send-new .friends {
 	overflow-x: hidden;
     overflow-y: scroll;
-    height: 300px;
+    height: 295px;
     margin: 10px;
     border: 1px solid #F0F1F2;
 }
@@ -508,3 +510,4 @@
 	width: 30px;
     height: 30px;
 }
+

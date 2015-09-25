@@ -35,8 +35,23 @@ var APIHelper = new (function() {
 	}
 	
 	this.getFriends = function(userId, access_token, callbackFunc) {
-		var url = "https://api.vk.com/method/friends.get?user_id=" + userId + "&fields=photo_50&order=hints&access_token=" + access_token + "&name_case=abl&v=5.37";
+		var url = "https://api.vk.com/method/friends.get?user_id=" + userId + "&fields=photo_50&order=hints&access_token=" + access_token + "&v=5.37";
 		callMethod(url, callbackFunc);
+	}
+	
+	this.sendMessage = function(dialogId, dialogType, message, access_token, callbackFunc) {
+		var identificator = "";
+		if (dialogType == "msg") {
+			identificator = "user_id=" + dialogId;
+		}
+		if (dialogType == "chat") {
+			identificator = "chat_id=" + dialogId;
+		}
+		if (identificator != "") {
+			var url = "https://api.vk.com/method/messages.send?" + identificator + "&message=" + message + "&access_token=" + access_token + "&v=5.37";
+			console.log(url);
+			callMethod(url, callbackFunc);
+		}
 	}
 	
 	var callMethod = function(url, callbackFunc) {
